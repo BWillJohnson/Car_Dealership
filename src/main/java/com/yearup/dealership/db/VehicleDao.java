@@ -16,10 +16,38 @@ public class VehicleDao {
 
     public void addVehicle(Vehicle vehicle) {
         // TODO: Implement the logic to add a vehicle
+        try (Connection connect = dataSource.getConnection();
+             PreparedStatement statement = connect.prepareStatement(
+                     "insert into vehicles (vin, make, model, year, SOLD, color, vehicleType, odometer, price) values (?,?,?,?,?,?,?,?,?)")) {
+            statement.setString(1, vehicle.getVin());
+            statement.setString(2, vehicle.getMake());
+            statement.setString(3, vehicle.getModel());
+            statement.setInt(4,vehicle.getYear();
+            statement.setBoolean(5,vehicle.isSold());
+            statement.setString(6, vehicle.getColor());
+            statement.setString(7, vehicle.getVehicleType());
+            statement.setInt(8,vehicle.getOdometer());
+            statement.setDouble(9,vehicle.getPrice());
+            statement.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void removeVehicle(String VIN) {
         // TODO: Implement the logic to remove a vehicle
+        try (Connection connect = dataSource.getConnection();
+             PreparedStatement statement = connect.prepareStatement(
+                     "DELETE FROM vehicles WHERE VIN = ?")) {
+            statement.setString(1, VIN);
+
+            int rows = statement.executeUpdate();
+            System.out.println("Rows Deleted: " + rows);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public List<Vehicle> searchByPriceRange(double minPrice, double maxPrice) {
