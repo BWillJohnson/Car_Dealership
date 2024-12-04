@@ -61,7 +61,7 @@ public class VehicleDao {
 
             try (ResultSet results = statement.executeQuery()){
                 while (results.next()){
-                    double V
+                    vehicleList.add(createVehicleFromResultSet(results));
                 }
             }
 
