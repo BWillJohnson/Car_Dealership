@@ -15,19 +15,19 @@ public class VehicleDao {
     }
 
     public void addVehicle(Vehicle vehicle) {
-        // TODO: Implement the logic to add a vehicle
+
         try (Connection connect = dataSource.getConnection();
              PreparedStatement statement = connect.prepareStatement(
-                     "insert into vehicles (vin, make, model, year, SOLD, color, vehicleType, odometer, price) values (?,?,?,?,?,?,?,?,?)")) {
+                     "INSERT INTO vehicles (vin, make, model, year, SOLD, color, vehicleType, odometer, price) values (?,?,?,?,?,?,?,?,?)")) {
             statement.setString(1, vehicle.getVin());
             statement.setString(2, vehicle.getMake());
             statement.setString(3, vehicle.getModel());
-            statement.setInt(4,vehicle.getYear();
-            statement.setBoolean(5,vehicle.isSold());
+            statement.setInt(4, vehicle.getYear());
+            statement.setBoolean(5, vehicle.isSold());
             statement.setString(6, vehicle.getColor());
             statement.setString(7, vehicle.getVehicleType());
-            statement.setInt(8,vehicle.getOdometer());
-            statement.setDouble(9,vehicle.getPrice());
+            statement.setInt(8, vehicle.getOdometer());
+            statement.setDouble(9, vehicle.getPrice());
             statement.executeUpdate();
 
         } catch (Exception ex) {
@@ -52,6 +52,22 @@ public class VehicleDao {
 
     public List<Vehicle> searchByPriceRange(double minPrice, double maxPrice) {
         // TODO: Implement the logic to search vehicles by price range
+        List<Vehicle> vehicleList = new ArrayList<>();
+        String priceRange = " SELECT *  FROM Vehicles WHERE Price BETWEEN ? AND ?";
+        try (Connection connect = dataSource.getConnection();
+             PreparedStatement statement = connect.prepareStatement(priceRange)) {
+            statement.setDouble(1, minPrice);
+            statement.setDouble(2, maxPrice);
+
+            try (ResultSet results = statement.executeQuery()){
+                while (results.next()){
+                    double V
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         return new ArrayList<>();
     }
 
