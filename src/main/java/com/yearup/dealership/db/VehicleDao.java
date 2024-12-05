@@ -53,9 +53,9 @@ public class VehicleDao {
     public List<Vehicle> searchByPriceRange(double minPrice, double maxPrice) {
         // TODO: Implement the logic to search vehicles by price range
         List<Vehicle> vehicleList = new ArrayList<>();
-        String priceRange = " SELECT *  FROM Vehicles WHERE Price BETWEEN ? AND ?";
+        String priceRangeQuery = " SELECT *  FROM Vehicles WHERE Price BETWEEN ? AND ?";
         try (Connection connect = dataSource.getConnection();
-             PreparedStatement statement = connect.prepareStatement(priceRange)) {
+             PreparedStatement statement = connect.prepareStatement(priceRangeQuery)) {
             statement.setDouble(1, minPrice);
             statement.setDouble(2, maxPrice);
 
@@ -73,16 +73,62 @@ public class VehicleDao {
 
     public List<Vehicle> searchByMakeModel(String make, String model) {
         // TODO: Implement the logic to search vehicles by make and model
+        List<Vehicle> vehicleList = new ArrayList<>();
+        String makeAndModelQuery = "SELECT * FROM Vehicles WHERE make = ? and model = ?";
+        try (Connection connect = dataSource.getConnection();
+        PreparedStatement statement = connect.prepareStatement(makeAndModelQuery)){
+            statement.setString(1,make);
+            statement.setString(2,model);
+            try (ResultSet results = statement.executeQuery()){
+                while (results.next()){
+                    vehicleList.add(createVehicleFromResultSet(results));
+                }
+            }
+
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
         return new ArrayList<>();
     }
 
     public List<Vehicle> searchByYearRange(int minYear, int maxYear) {
         // TODO: Implement the logic to search vehicles by year range
+        List<Vehicle> vehicleList = new ArrayList<>();
+        String yearRangeQuery = " SELECT *  FROM Vehicles WHERE Year BETWEEN ? AND ?";
+        try (Connection connect = dataSource.getConnection();
+             PreparedStatement statement = connect.prepareStatement(yearRangeQuery)) {
+            statement.setInt(1, minYear);
+            statement.setInt(2, maxYear);
+
+            try (ResultSet results = statement.executeQuery()){
+                while (results.next()){
+                    vehicleList.add(createVehicleFromResultSet(results));
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         return new ArrayList<>();
     }
 
     public List<Vehicle> searchByColor(String color) {
         // TODO: Implement the logic to search vehicles by color
+        List<Vehicle> vehicleList = new ArrayList<>();
+        String colorVehicleQuery = " SELECT *  FROM Vehicles WHERE color = ? ";
+        try (Connection connect = dataSource.getConnection();
+             PreparedStatement statement = connect.prepareStatement(colorVehicleQuery)) {
+            statement.setString(1, color);
+
+            try (ResultSet results = statement.executeQuery()){
+                while (results.next()){
+                    vehicleList.add(createVehicleFromResultSet(results));
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         return new ArrayList<>();
     }
 
