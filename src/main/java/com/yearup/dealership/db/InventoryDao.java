@@ -45,7 +45,7 @@ public class InventoryDao {
 
         try (Connection connect = dataSource.getConnection();
              PreparedStatement statement = connect.prepareStatement(
-                     "DELETE FROM vehicles WHERE VIN = ?")) {
+                     "DELETE FROM inventory WHERE VIN = ?")) {
             statement.setString(1, vin);
 
             int rows = statement.executeUpdate();
