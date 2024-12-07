@@ -12,12 +12,12 @@ public class InventoryDao {
         this.dataSource = dataSource;
     }
 
-    public void addVehicleToInventory(String vin, int dealershipId) {
+    public void addVehicleToInventory(String VIN, int dealershipId) {
         // TODO: Implement the logic to add a vehicle to the inventory
         try (Connection connect = dataSource.getConnection();
         PreparedStatement statement = connect.prepareStatement(
-                "INSERT INTO vehicles (vin, dealershipId values (?,?)")) {
-            statement.setString(1,vin);
+                "INSERT INTO vehicles (VIN, dealership_id) values (?,?)")) {
+            statement.setString(1,VIN);
             statement.setInt(2, dealershipId);
 
             statement.executeUpdate();
