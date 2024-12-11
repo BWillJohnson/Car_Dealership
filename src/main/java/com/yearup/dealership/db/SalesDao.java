@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class SalesDao {
     private DataSource dataSource;
@@ -16,7 +15,7 @@ public class SalesDao {
     }
 
     public void addSalesContract(SalesContract salesContract) {
-        //
+
         try (Connection connect = dataSource.getConnection();
              PreparedStatement statement = connect.prepareStatement(
                      "INSERT INTO sales_contracts  (sale_date, price) VALUES (?,?)")){

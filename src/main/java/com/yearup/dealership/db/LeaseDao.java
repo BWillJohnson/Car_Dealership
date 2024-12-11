@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class LeaseDao {
     private DataSource dataSource;
@@ -16,7 +15,6 @@ public class LeaseDao {
     }
 
     public void addLeaseContract(LeaseContract leaseContract) {
-        // TODO: Implement the logic to add a lease contract
         try (Connection connect = dataSource.getConnection();
         PreparedStatement statement = connect.prepareStatement(
                 "INSERT INTO lease_contracts ( lease_start, lease_end, monthly_payment) VALUES (?,?,?)")){
