@@ -4,7 +4,7 @@ Jdbc-Dealership-Application
 This application will be having database interaction gathering information containing a Car dealership,
 Prompting user to apply the given data of the vehicle and store it into the database.
 
-![Class Diagram](path/to/your/class_diagram.png)
+!![img.png](img.png),![img_1.png](img_1.png),![img_2.png](img_2.png),![img_3.png](img_3.png)
 
 ## User Stories
 - As a Developer, I want to Implement the logic to add a vehicle.
